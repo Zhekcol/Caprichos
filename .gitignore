@@ -5,6 +5,7 @@
 /config.php
 
 # Ignorar archivos de dependencias
+.env
 /vendor/
 
 # Ignorar archivos de IDE
