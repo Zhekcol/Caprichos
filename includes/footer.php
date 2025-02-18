@@ -1,1 +1,2 @@
-#Pie de página comun
+</body>
+</html>
