@@ -1,3 +1,22 @@
-.custom-border{
-    border-bottom: 2px solid var(--bs-warning);
+/* Efecto de sombra al pasar el cursor */
+.navbar-nav .nav-link:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+    transition: box-shadow 0.3s ease-in-out; /* Transición suave */
+    border-bottom: 3px solid #000;
+}
+
+/*Efecto hover botones navbar*/
+.navbar .nav-link.active {
+    font-weight: 500;
+    color: #000 !important;
+    border-bottom: 3px solid #000;
+}
+
+/* imagenes de slider responsive pantallas md sm*/
+@media (max-width:767.98px) {
+    .image-slider{
+        width: 100%;
+        max-width: 550px;
+        height: 400px;
+    }
 }
