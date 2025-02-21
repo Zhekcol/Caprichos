@@ -12,11 +12,134 @@
     border-bottom: 3px solid #000;
 }
 
+/* Estilos imagenes y desplazamiento multi slider */
+.slider-container {
+    position: relative;
+    overflow: hidden; /* Oculta las imágenes fuera del contenedor */
+    width: 100%; /* Se ajusta al contenedor */
+}
+.slider {
+    display: flex;
+    transition: transform 0.5s ease;
+}
+
+.slider a{
+    text-decoration: none;
+    color: inherit;
+    display: block; /* Hace que el enlace ocupe todo el espacio */
+    width: 100%;
+    height: 100%;
+}
+
+.slider-item {
+    flex: 0 0 33.33%; /* Muestra 3 imágenes a la vez */
+    box-sizing: border-box;
+}
+
+/* Estilos botones multi slider siguiente y anterior*/
+/* Estilos para los botones de navegación */
+.slider-prev,
+.slider-next {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: #dedede;
+    color: #000;
+    border: none;
+    cursor: pointer;
+    outline: none;
+}
+
+.slider-prev:hover,
+.slider-next:hover {
+    background-color: #acacac;
+}
+
+.slider-prev i,
+.slider-next i {
+    font-size: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Hover en pantallas md y sm */
+@media (max-width: 992px) {
+    .slider-prev:hover,
+    .slider-next:hover {
+        background-color: #acacac;
+    }
+}
+/* imagenes de cada multislider responsivas pantallas md*/
+
+@media (max-width: 992px){
+    .slider-item {
+        flex: 0 0 100%;
+    }
+}
+
+.slider-item img {
+    width: 100%; /* Ocupa todo el ancho del contenedor */
+    height: 500px; /* Fija una altura específica */
+    object-fit: cover; /* Ajusta la imagen para cubrir el espacio sin distorsionarse */
+}
+
+.prod-accesorio{
+    width: 100% !important; /* Ocupa todo el ancho del contenedor */
+    height: 500px !important;
+    object-fit: cover; /* Recorta la imagen para que cubra el contenedor */
+    object-position: center bottom; /* Ajusta el recorte hacia la parte de arriba */
+}
+
+/* imagenes de cada multislider responsivas pantallas md solo las de accesorios*/
+@media (max-width: 992px) {
+    .prod-accesorio{
+        width: 100% !important;
+        height: 400px !important;
+    }
+}
+
 /* imagenes de slider responsive pantallas md sm*/
 @media (max-width:767.98px) {
     .image-slider{
         width: 100%;
-        max-width: 550px;
-        height: 400px;
+        max-width: 767px;
+        height: 325px;
     }
+}
+/* Estilos para pie de página */
+footer{
+    width: 100%;
+    bottom: 0;
+    left: 0;
+    padding: 2rem 8%;
+    background-color: rgb(31, 31, 31);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 5%;
+}
+.menu-footer-container{
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 1rem;
+    list-style-type: none;
+    color: #ccc;
+}
+.menu-item{
+    margin: 1rem 1.5rem;
+    cursor: pointer;
+    opacity: o.6;
+    text-decoration: none;
+    color: white;
+}
+.menu-item:hover{
+    opacity: 1;
+}
+.copyright{
+    color: #fff;
+    opacity: 0.3;
+    text-align: center;
 }
