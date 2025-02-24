@@ -46,7 +46,7 @@
 </div>
 
 <!-- Sección ropa hombres -->
-<div class="container p-4 hombres">
+<div class="container p-4 hombres" id="hombres">
         <div class="d-flex align-items-center justify-content-between mb-2">
             <h1 class="h4">HOMBRES</h1>
                         <div>
@@ -114,7 +114,7 @@
 </div>
 
 <!-- Sección ropa mujeres -->
-<div class="container p-4 mujeres">
+<div class="container p-4 mujeres" id="mujeres">
         <div class="d-flex align-items-center justify-content-between mb-2">
             <h1 class="h4">MUJERES</h1>
                         <div>
@@ -181,7 +181,7 @@
 </div>
 
 <!-- Sección accesorios -->
-<div class="container p-4 accesorios">
+<div class="container p-4 accesorios" id="accesorios">
         <div class="d-flex align-items-center justify-content-between mb-2">
             <h1 class="h4">ACCESORIOS</h1>
                         <div>

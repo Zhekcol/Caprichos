@@ -34,16 +34,16 @@
         <div class="collapse navbar-collapse" id="headerMenu">
             <ul class="navbar-nav w-100 d-flex flex-column align-items-start d-lg-flex flex-lg-row justify-content-lg-center gap-lg-4">
                 <li class="nav-item">
-                    <a class="nav-link text-dark" href="./index.php">Inicio</a>
+                    <a class="nav-link text-dark inicio" href="./index.php">Inicio</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-dark" href="#">Hombre</a>
+                    <a class="nav-link text-dark" href="#hombres">Hombre</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-dark" href="#">Mujer</a>
+                    <a class="nav-link text-dark" href="#mujeres">Mujer</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-dark" href="#">Accesorios</a>
+                    <a class="nav-link text-dark" href="#accesorios">Accesorios</a>
                 </li>
                 <!-- Botón "Iniciar sesión" como un elemento más del menú (visible solo en sm y md) -->
                 <li class="nav-item d-lg-none">

@@ -1,3 +1,8 @@
+/* Efecto de desplazamiento suave para el scroll al momento de ir a una sesión*/
+html {
+    scroll-behavior: smooth;
+}
+
 /* Efecto de sombra al pasar el cursor */
 .navbar-nav .nav-link:hover {
     background-color: rgba(0, 0, 0, 0.05);
