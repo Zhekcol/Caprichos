@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Caprichos</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <link rel="stylesheet" href="assets/css/estilos.css">
+    <link rel="stylesheet" href="assets/css/paginas-principales/estilos.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <script defer src="./assets/js/navbar.js"></script>
@@ -47,12 +47,12 @@
                 </li>
                 <!-- Botón "Iniciar sesión" como un elemento más del menú (visible solo en sm y md) -->
                 <li class="nav-item d-lg-none">
-                    <a class="nav-link text-dark" href="#">Iniciar sesión</a>
+                    <a class="nav-link text-dark" href="./pages/login.php">Iniciar sesión</a>
                 </li>
             </ul>
             <!-- Botón "Iniciar sesión" visible solo en pantallas grandes (lg) -->
             <div class="ms-auto d-none d-lg-block">
-                <a class="btn btn-outline-dark btn-sm text-nowrap" href="#">Iniciar sesión</a>
+                <a class="btn btn-outline-dark btn-sm text-nowrap" href="./pages/login.php">Iniciar sesión</a>
             </div>
         </div>
         
