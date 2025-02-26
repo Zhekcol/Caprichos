@@ -11,6 +11,7 @@ unset($_SESSION['errores']); // Limpiar errores después de tomarlos
     <title>Inició de sesión</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="../assets/css/formularios/estilos.css">
+    <script src="../assets/js/validarFormularios.js" defer></script>
 </head>
 <body>
     <div class="container p-4 mt-4">
@@ -19,7 +20,7 @@ unset($_SESSION['errores']); // Limpiar errores después de tomarlos
             <div class="col-lg-3 col-sm-1"></div>
 
             <div class="col-lg-6 col-sm-10 mt-4">
-                <form action="../includes/validar_login.php" method="post">
+                <form action="../includes/validar_login.php" method="post" id="formLogin">
                     <div class="form-group mb-3">
                         <label for="email" class="form-label">Correo electrónico:</label>
                         <input type="email" class="form-control form-control-lg" name="email" id="email">
@@ -32,6 +33,7 @@ unset($_SESSION['errores']); // Limpiar errores después de tomarlos
                                     ></button>
                             </div>
                         <?php endif; ?>
+                        <div id="errorEmail"></div>
                     </div>
                     <div class="form-group mb-3">
                         <label for="password" class="form-label">Contraseña:</label>
@@ -45,6 +47,7 @@ unset($_SESSION['errores']); // Limpiar errores después de tomarlos
                                     ></button>
                             </div>
                         <?php endif; ?>
+                        <div id="errorPassword"></div>
                     </div>
                     <div class="d-flex justify-content-between">
                         <button type="submit" class="btn btn-primary">Ingresar</button>

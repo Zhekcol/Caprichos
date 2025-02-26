@@ -14,6 +14,7 @@ unset($_SESSION['errores']); // Limpiar errores después de tomarlos
     <title>Registrarse</title>
     <link rel="stylesheet" href="../assets/css/formularios/estilos.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="../assets/js/validarFormularios.js" defer></script>
 </head>
 <body>
     <div class="container p-4">
@@ -21,7 +22,7 @@ unset($_SESSION['errores']); // Limpiar errores después de tomarlos
             <div class="col-lg-3 col-sm-1"></div>
 
             <div class="col-lg-6 col-sm-10">
-                <form action="../includes/validar_registro.php" method="post">
+                <form action="../includes/validar_registro.php" method="post" id="formRegistro">
                     <input type="hidden" name="csrf_token" value="<?= $csrf_token; ?>">
                     <div class="form-group mb-3">
                         <label for="name" class="form-label">Nombre:</label>
@@ -35,7 +36,7 @@ unset($_SESSION['errores']); // Limpiar errores después de tomarlos
                                     ></button>
                             </div>
                             <?php endif; ?>
-                            
+                            <div id="errorName"></div>
                     </div>
 
                     <div class="form-group mb-3">
@@ -50,6 +51,7 @@ unset($_SESSION['errores']); // Limpiar errores después de tomarlos
                                     ></button>
                             </div>
                         <?php endif; ?>
+                        <div id="errorEmail"></div>
                     </div>
 
                     <div class="form-group mb-3">
@@ -64,6 +66,7 @@ unset($_SESSION['errores']); // Limpiar errores después de tomarlos
                                     ></button>
                             </div>
                         <?php endif; ?>
+                        <div id="errorPassword"></div>
                     </div>
                     <div class="d-flex gap-2">
                         <button type="submit" class="registrarseButton">Registrarse</button>
