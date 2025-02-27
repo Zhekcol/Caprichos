@@ -55,13 +55,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             exit();
         } else {
             // Contraseña incorrecta
-            $_SESSION['errores']['password'] = "La contraseña es incorrecta o no está registrado.";
+            $_SESSION['errores']['password'] = "La contraseña es incorrecta o no está registrada.";
+            $_SESSION['old_data'] = $_POST;
             header('Location: ../pages/login.php');
             exit();
         }
     } else {
         // El correo no existe en la base de datos
         $_SESSION['errores']['email'] = "El correo electrónico ingresado no está registrado.";
+        $_SESSION['old_data'] = $_POST;
         header('Location: ../pages/login.php');
         exit();
     }

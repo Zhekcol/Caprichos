@@ -20,11 +20,11 @@
     </div>
 
 <nav class="navbar navbar-expand-lg">
-    <div class="container mb-3">
+    <div class="container">
 
         <!-- Logotipo -->
         <a class="navbar-brand" href="./index.php">
-            <img class="" src="https://d1csarkz8obe9u.cloudfront.net/posterpreviews/lion-fire-logo-design-template-free-89daa14626ac403bd3cf6282036663ff_screen.jpg?ts=1572094154" alt="" height="30">
+            <img class="img-fluid" src="./assets/images/img-logo-letra.png" alt="" height="50" width="120">
         </a>
         <!-- Botón de toggler para dispositivos móviles -->
         <button type="button" class="navbar-toggler ms-auto" data-bs-toggle="collapse" data-bs-target="#headerMenu">

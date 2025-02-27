@@ -3,7 +3,8 @@ session_start();
 $csrf_token = bin2hex(random_bytes(32)); // Genera un token aleatorio
 $_SESSION['csrf_token'] = $csrf_token; // Almacena el token en la sesión
 $errores = $_SESSION['errores'] ?? []; // Tomar errores si existen
-unset($_SESSION['errores']); // Limpiar errores después de tomarlos
+$old_data = $_SESSION['old_data'] ?? []; // Recuperar los datos ingresados
+unset($_SESSION['errores'], $_SESSION['old_data']); // Limpiar después de mostrarlos
 ?>
 
 <!DOCTYPE html>
@@ -22,13 +23,17 @@ unset($_SESSION['errores']); // Limpiar errores después de tomarlos
             <div class="col-lg-3 col-sm-1"></div>
 
             <div class="col-lg-6 col-sm-10">
+                <div>
+                    <img src="../assets/images/img-logo-letra.png" alt="" class="img-fluid mx-auto d-block" height="200" width="200">
+                </div>
+
                 <form action="../includes/validar_registro.php" method="post" id="formRegistro">
                     <input type="hidden" name="csrf_token" value="<?= $csrf_token; ?>">
                     <div class="form-group mb-3">
                         <label for="name" class="form-label">Nombre:</label>
-                        <input type="name" class="form-control form-control-lg" name="name" id="name" >
+                        <input type="name" class="form-control form-control-lg" name="name" id="name" value="<?= isset($old_data['name']) ? htmlspecialchars($old_data['name']) : '' ?>">
                             <?php if (!empty($errores['name'])): ?>
-                            <div class="alert alert-danger alert-dismissible mt-2">
+                            <div class="alert alert-warning alert-dismissible mt-2">
                                     <span><?php echo $errores['name']; ?></span>
                                     <button class="btn-close"
                                     data-bs-dismiss="alert"
@@ -41,9 +46,9 @@ unset($_SESSION['errores']); // Limpiar errores después de tomarlos
 
                     <div class="form-group mb-3">
                         <label for="email" class="form-label">Correo electrónico:</label>
-                        <input type="email" class="form-control form-control-lg" name="email" id="email">
+                        <input type="email" class="form-control form-control-lg" name="email" id="email" placeholder="*correo@correo.com" value="<?= isset($old_data['email']) ? htmlspecialchars($old_data['email']) : '' ?>">
                         <?php if (!empty($errores['email'])): ?>
-                            <div class="alert alert-danger alert-dismissible mt-2">
+                            <div class="alert alert-warning alert-dismissible mt-2">
                                     <span><?php echo $errores['email']; ?></span>
                                     <button class="btn-close"
                                     data-bs-dismiss="alert"
@@ -58,7 +63,7 @@ unset($_SESSION['errores']); // Limpiar errores después de tomarlos
                         <label for="password" class="form-label">Contraseña:</label>
                         <input type="password" class="form-control form-control-lg" name="password" id="password">
                         <?php if (!empty($errores['password'])): ?>
-                            <div class="alert alert-danger alert-dismissible mt-2">
+                            <div class="alert alert-warning alert-dismissible mt-2">
                                     <span><?php echo $errores['password']; ?></span>
                                     <button class="btn-close"
                                     data-bs-dismiss="alert"
@@ -69,8 +74,8 @@ unset($_SESSION['errores']); // Limpiar errores después de tomarlos
                         <div id="errorPassword"></div>
                     </div>
                     <div class="d-flex gap-2">
-                        <button type="submit" class="registrarseButton">Registrarse</button>
-                        <a href="../pages/login.php" class="btn btn-success">Cancelar</a>
+                        <button type="submit" class="blackButton">Registrarse</button>
+                        <a href="../pages/login.php" class="orangeButton">Cancelar</a>
                     </div>
                         
                 </form>

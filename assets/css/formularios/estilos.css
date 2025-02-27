@@ -1,5 +1,5 @@
-/* Boton de registrarse */
-.registrarseButton {
+/* Boton negro de formularios */
+.blackButton {
     background-color: #000;
     border-radius: 30px;
     color: #fff;
@@ -7,17 +7,25 @@
     padding: 10px 18px;
     font-size: 14.5px;
     font-weight: 600;
+    text-decoration: none;
 }
 
-.registrarseButton:hover {
+.blackButton:hover {
     background-color: #272626;
 }
 
-.btn {
-    border-radius: 30px !important;
+/* Boton naranja de formularios */
+.orangeButton {
+    background-color: #df7025;
+    border-radius: 30px;
     color: #fff;
-    border: none !important;
-    padding: 10px 18px !important;
-    font-size: 14.5px !important;
-    font-weight: 600 !important;
+    border: none;
+    padding: 10px 18px;
+    font-size: 14.5px;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.orangeButton:hover{
+    background-color: #be5f1f;
 }

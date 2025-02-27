@@ -5,6 +5,7 @@ include '../includes/functions.php';// Incluye funciones para validar campos de 
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $_SESSION['errores'] = []; // Inicializar errores
+    $_SESSION['old_data'] = $_POST; // Guardar los datos ingresados
 
     // Verificar si la solicitud proviene de tu sitio web
     if (isset($_SERVER['HTTP_REFERER']) && parse_url($_SERVER['HTTP_REFERER'], PHP_URL_HOST) === 'http://localhost/Caprichos/index.php') {

@@ -3,12 +3,6 @@
 <!-- Carousel Inicio  -->
 <div class="container-fluid p-0 mb-4">
     <div class="carousel slide" id="slider-index" data-bs-ride="carousel">
-        <!-- Botones inferiores indicativos de cada imagen -->
-        <div class="carousel-indicators">
-            <button type="button" class="active" data-bs-target="#slider-index" data-bs-slide-to="0"></button>
-            <button type="button" data-bs-target="#slider-index" data-bs-slide-to="1"></button>
-            <button type="button" data-bs-target="#slider-index" data-bs-slide-to="2"></button>
-        </div>
 
         <!-- carousel con efecto desbanecido(fade) -->
         <div class="carousel-inner carousel-fade">

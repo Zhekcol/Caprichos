@@ -25,7 +25,7 @@ function validarFormulario(formulario, validarNombre = false) {
     
         if (erroresNombre !== true && erroresNombre !== false) {
             valid = false;
-            errorName.innerHTML = `<p style="color: #E21818;">${erroresNombre.join("<br>")}</p>`;
+            errorName.innerHTML = `<p style="color: #be5f1f;">${erroresNombre.join("<br>")}</p>`;
         }
     }
 
@@ -34,14 +34,14 @@ function validarFormulario(formulario, validarNombre = false) {
     
     if (erroresEmail !== true && erroresEmail !== false) {
         valid = false;
-        errorEmail.innerHTML = `<p style="color: #E21818;">${erroresEmail.join("<br>")}</p>`;
+        errorEmail.innerHTML = `<p style="color: #be5f1f;">${erroresEmail.join("<br>")}</p>`;
     }
 
     // Validar contraseña
     const erroresPassword = validarPassword(datos.password);
     if (erroresPassword !== true && erroresPassword !== false) {
         valid = false;
-        errorPassword.innerHTML = `<p style="color: #E21818;">${erroresPassword.join("<br>")}</p>`;
+        errorPassword.innerHTML = `<p style="color: #be5f1f;">${erroresPassword.join("<br>")}</p>`;
     }
 
     return valid;
