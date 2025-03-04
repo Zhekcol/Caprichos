@@ -1,0 +1,13 @@
+/* Oculta todos los contenedores por defecto */
+.contenido-hombres,
+.contenido-mujeres,
+.contenido-accesorios {
+    display: none;
+}
+
+/* Muestra el contenedor correspondiente según el hash de la URL */
+.contenido-hombres:target,
+.contenido-mujeres:target,
+.contenido-accesorios:target {
+    display: block;
+}

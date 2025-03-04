@@ -17,6 +17,39 @@ html {
     border-bottom: 3px solid #000;
 }
 
+/* Estilos para el dropdown-menu*/
+nav ul li ul.dropdown-menu {
+    display: none; /* Oculta el dropdown por defecto */
+    position: absolute;
+    top: 100%;
+    top: auto;
+    background-color: #fff;
+    min-width: 160px;
+    z-index: 1000;
+    border-radius: 0%;
+    border: none;
+}
+
+/* Estilos menú desplegable cuando se esta logueado */
+nav ul li ul.dropdown-menu li {
+    width: 100%;
+}
+nav ul li ul.dropdown-menu li a{
+    text-decoration: none;
+    font-size: 13px;
+}
+nav ul li ul.dropdown-menu li a:hover{
+    color: #000 !important;
+}
+/* Muestra el dropdown al hacer hover */
+nav ul li:hover > ul.dropdown-menu {
+    display: block;
+}
+nav ul li ul.dropdown-menu.active {
+    display: block;
+}
+
+
 /* Estilos imagenes y desplazamiento multi slider */
 .slider-container {
     position: relative;
@@ -149,3 +182,18 @@ footer{
     text-align: center;
 }
 
+
+/* Se ajustan tamaños de imagen en los productos del index cuando se esta logueado */
+.card img {
+    width: 100%; /* Ocupa todo el ancho del contenedor */
+    height: 400px; /* Fija una altura específica */
+    object-fit: cover; /* Ajusta la imagen para cubrir el espacio sin distorsionarse */
+}
+
+@media (max-width: 992px) {
+    .card img {
+        width: 100%; /* Ocupa todo el ancho del contenedor */
+        height: 300px; /* Fija una altura específica */
+        object-fit: cover; /* Ajusta la imagen para cubrir el espacio sin distorsionarse */
+    }
+}

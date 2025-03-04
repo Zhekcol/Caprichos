@@ -73,6 +73,9 @@ unset($_SESSION['errores'], $_SESSION['old_data']); // Limpiar después de mostr
                         <?php endif; ?>
                         <div id="errorPassword"></div>
                     </div>
+                    <div>
+                        <p class="text-muted">Al continuar, acepto los <a class="text-muted" href="../tyc.html" target="_blank">Términos y condiciones</a> de Caprichos.</p>
+                    </div>
                     <div class="d-flex gap-2">
                         <button type="submit" class="blackButton">Registrarse</button>
                         <a href="../pages/login.php" class="orangeButton">Cancelar</a>
