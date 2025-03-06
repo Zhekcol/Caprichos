@@ -49,6 +49,17 @@ nav ul li ul.dropdown-menu.active {
     display: block;
 }
 
+/* Estilos para el menú desplegable en dispositivos móviles */
+@media (max-width: 992px) {
+    .dropdown-menu {
+        display: none; /* Oculta el menú desplegable por defecto */
+    }
+
+    .dropdown-menu.show {
+        display: block; /* Muestra el menú desplegable cuando tiene la clase "show" */
+    }
+}
+
 
 /* Estilos imagenes y desplazamiento multi slider */
 .slider-container {
@@ -185,7 +196,7 @@ footer{
 
 /* Se ajustan tamaños de imagen en los productos del index cuando se esta logueado */
 .card img {
-    width: 100%; /* Ocupa todo el ancho del contenedor */
+    width: 100vw; /* Ocupa todo el ancho del contenedor */
     height: 400px; /* Fija una altura específica */
     object-fit: cover; /* Ajusta la imagen para cubrir el espacio sin distorsionarse */
 }

@@ -232,7 +232,7 @@
             
                     <div class="slider-item p-2">
                         <a href="#">
-                            <img class="prod-accesorio" src="./assets/images/img-cinturonCuero4.png" alt="Accesorios 6">
+                            <img class="prod-accesorio" src="./assets/images/img-billeteraCuero3.png" alt="Accesorios 6">
                             <h5 class="card-title mt-3">Cinturon</h5>
                             <p class="card-text">Cinturon de Cuero Velez</p>
                         </a>

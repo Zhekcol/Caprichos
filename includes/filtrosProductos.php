@@ -1,5 +1,7 @@
 <?php
-// session_start();
+if (session_status() == PHP_SESSION_NONE) {
+session_start();
+}
 
 if (!isset($_SESSION['usuario_id'])) {
     header('Location: ../pages/login.php');
@@ -38,18 +40,13 @@ function obtenerCategoriasPorGenero($mysqli, $genero) {
 
     return $categorias;
 }
-
 // Array de géneros
 $generos = ["Hombre", "Mujer", "Accesorio"];
-
 // Array para almacenar las categorías por género
 $categoriasPorGenero = [];
-
 // Obtener categorías para cada género
 foreach ($generos as $genero) {
     $categoriasPorGenero[$genero] = obtenerCategoriasPorGenero($mysqli, $genero);
 }
 
-// Imprimir resultados (opcional, para depuración)
-// print_r($categoriasPorGenero);
 ?>

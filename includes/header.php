@@ -1,5 +1,5 @@
 <?php include_once __DIR__ . '/../config/config.php'; ?>
-<?php 
+<?php
     if (isset($_SESSION['usuario_id']) && isset($_SESSION['usuario_nombre'])) {
         include '../includes/filtrosProductos.php'; 
     }
@@ -47,37 +47,61 @@
                     <a class="nav-link text-dark inicio" href="./index.php">Inicio</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-dark" href="#" id="man">Hombre</a>
+                    <?php if (!isset($_SESSION['usuario_id']) && !isset($_SESSION['usuario_nombre'])) { ?>
+                    <a class="nav-link text-dark" href="#hombres">Hombre</a>
+                    <?php } ?>
+                    
                     <?php if (isset($_SESSION['usuario_id']) && isset($_SESSION['usuario_nombre'])) { ?>
-                    <ul class="dropdown-menu">
+                    <a class="nav-link text-dark" href="./index.php?genero=Hombre" data-target="#dropdown-hombres">Hombre</a>
+                    <ul class="dropdown-menu" id="dropdown-hombres">
                         <li><h5 class="dropdown-header text-dark fw-bold">Ropa</h5></li>
-                        <li><a href="#hombres" class="dropdown-item text-muted fw-bold">Toda la ropa</a></li>
+                        <li><a href="./index.php?genero=Hombre" class="dropdown-item text-muted fw-bold">Toda la ropa</a></li>
                         <?php foreach ($categoriasPorGenero[$generos[0]] as $categoria) { ?>
-                        <li><a href="" class="dropdown-item text-muted fw-bold"><?= $categoria['nombre']; ?></a></li>
+                        <li>
+                            <a href="./index.php?genero=Hombre&categoria=<?= urlencode($categoria['nombre']); ?>" class="dropdown-item text-muted fw-bold">
+                                <?= $categoria['nombre']; ?>
+                            </a>
+                        </li>
                         <?php } ?>
                     </ul>
                     <?php } ?>
                 </li>
                 <li class="nav-item">
+                    <?php if (!isset($_SESSION['usuario_id']) && !isset($_SESSION['usuario_nombre'])) { ?>
                     <a class="nav-link text-dark" href="#mujeres">Mujer</a>
+                    <?php } ?>
+                    
                     <?php if (isset($_SESSION['usuario_id']) && isset($_SESSION['usuario_nombre'])) { ?>
-                    <ul class="dropdown-menu">
-                    <li><h5 class="dropdown-header text-dark fw-bold">Ropa</h5></li>
-                        <li><a href="#mujeres" class="dropdown-item text-muted fw-bold">Toda la ropa</a></li>
+                        <a class="nav-link text-dark" href="./index.php?genero=Mujer" data-target="#dropdown-mujeres">Mujer</a>
+                    <ul class="dropdown-menu" id="dropdown-mujeres">
+                        <li><h5 class="dropdown-header text-dark fw-bold">Ropa</h5></li>
+                        <li><a href="./index.php?genero=Mujer" class="dropdown-item text-muted fw-bold">Toda la ropa</a></li>
                         <?php foreach ($categoriasPorGenero[$generos[1]] as $categoria) { ?>
-                        <li><a href="" class="dropdown-item text-muted fw-bold"><?= $categoria['nombre']; ?></a></li>
+                        <li>
+                            <a href="./index.php?genero=Mujer&categoria=<?= urlencode($categoria['nombre']); ?>" class="dropdown-item text-muted fw-bold">
+                                <?= $categoria['nombre']; ?>
+                            </a>
+                        </li>
                         <?php } ?>
                     </ul>
                     <?php } ?>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-dark" href="#accesorios">Accesorios</a>
+                    <?php if (!isset($_SESSION['usuario_id']) && !isset($_SESSION['usuario_nombre'])) { ?>
+                    <a class="nav-link text-dark" href="#accesorios">Accesorio</a>
+                    <?php } ?>
+
                     <?php if (isset($_SESSION['usuario_id']) && isset($_SESSION['usuario_nombre'])) { ?>
-                    <ul class="dropdown-menu">
-                    <li><h5 class="dropdown-header text-dark fw-bold">Ropa</h5></li>
-                        <li><a href="#accesorios" class="dropdown-item text-muted fw-bold">Todos los accesorios</a></li>
+                    <a class="nav-link text-dark" href="./index.php?genero=Accesorio" data-target="#dropdown-accesorios">Accesorio</a>
+                    <ul class="dropdown-menu" id="dropdown-accesorios">
+                        <li><h5 class="dropdown-header text-dark fw-bold">Accesorios y equipamiento</h5></li>
+                        <li><a href="./index.php?genero=Accesorio" class="dropdown-item text-muted fw-bold">Todos los accesorios</a></li>
                         <?php foreach ($categoriasPorGenero[$generos[2]] as $categoria) { ?>
-                        <li><a href="" class="dropdown-item text-muted fw-bold"><?= $categoria['nombre']; ?></a></li>
+                        <li>
+                            <a href="./index.php?genero=Accesorio&categoria=<?= urlencode($categoria['nombre']); ?>" class="dropdown-item text-muted fw-bold">
+                                <?= $categoria['nombre']; ?>
+                            </a>
+                        </li>
                         <?php } ?>
                     </ul>
                     <?php } ?>
