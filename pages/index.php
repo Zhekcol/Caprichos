@@ -56,7 +56,7 @@ $productosAccesorios = array_filter($productos, fn($p) => $p['genero'] === 'Acce
         <?php foreach ($productosHombres as $producto) { ?>
             <div class="col mb-4">
                 <div class="card border-light">
-                    <a href="" class="text-decoration-none text-dark align-items-start">
+                    <a href="./productos.php?id=<?= $producto['id']; ?>&categoria_id=<?= $producto['categoria_id']; ?>" class="text-decoration-none text-dark align-items-start">
                         <img src="<?= BASE_URL ?>assets/images/<?= $producto['imagen']; ?>" alt="" class="img-fluid">
                         <div class="card-body text-start px-0">
                             <h1 class="h5 card-title"><?= $producto['nombre']; ?></h1>
@@ -76,7 +76,7 @@ $productosAccesorios = array_filter($productos, fn($p) => $p['genero'] === 'Acce
         <?php foreach ($productosMujeres as $producto) { ?>
             <div class="col mb-4">
                 <div class="card border-light">
-                    <a href="" class="text-decoration-none text-dark align-items-start">
+                    <a href="./productos.php?id=<?= $producto['id']; ?>&categoria_id=<?= $producto['categoria_id']; ?>" class="text-decoration-none text-dark align-items-start">
                         <img src="<?= BASE_URL ?>assets/images/<?= $producto['imagen']; ?>" alt="" class="img-fluid">
                         <div class="card-body text-start px-0">
                             <h1 class="h5 card-title"><?= $producto['nombre']; ?></h1>
@@ -96,7 +96,7 @@ $productosAccesorios = array_filter($productos, fn($p) => $p['genero'] === 'Acce
         <?php foreach ($productosAccesorios as $producto) { ?>
             <div class="col mb-4">
                 <div class="card border-light">
-                    <a href="" class="text-decoration-none text-dark align-items-start">
+                    <a href="./productos.php?id=<?= $producto['id']; ?>&categoria_id=<?= $producto['categoria_id']; ?>" class="text-decoration-none text-dark align-items-start">
                         <img src="<?= BASE_URL ?>assets/images/<?= $producto['imagen']; ?>" alt="" class="img-fluid">
                         <div class="card-body text-start px-0">
                             <h1 class="h5 card-title"><?= $producto['nombre']; ?></h1>

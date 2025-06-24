@@ -88,7 +88,7 @@
                 </li>
                 <li class="nav-item">
                     <?php if (!isset($_SESSION['usuario_id']) && !isset($_SESSION['usuario_nombre'])) { ?>
-                    <a class="nav-link text-dark" href="#accesorios">Accesorio</a>
+                    <a class="nav-link text-dark" href="#accesorios">Accesorios</a>
                     <?php } ?>
 
                     <?php if (isset($_SESSION['usuario_id']) && isset($_SESSION['usuario_nombre'])) { ?>
