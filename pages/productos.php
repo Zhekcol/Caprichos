@@ -69,8 +69,18 @@ if (!empty($idProducto)) {
                     <?= $talla; ?>
                 </button>
             <?php } ?>
-            <div class="mt-2 mb-2"><button type="button" class="agregarCarrito w-100">AGREGAR AL CARRITO</button></div>
+            <div class="mt-2 mb-2"><button type="button" class="agregarCarrito w-100 d-lg-block agregar-carrito" 
+                                        data-id="<?= $producto['id']; ?>" 
+                                        data-talla="">
+                                        AGREGAR AL CARRITO
+                                    </button>
+            </div>
             <div class="mt-2 mb-2"><button type="button" class="reservar w-100">RESERVAR</button></div>
+            <!-- Contenedor para la alerta de Bootstrap (inicialmente oculto) -->
+            <div id="alerta-carrito" class="alert alert-success alert-dismissible fade show mt-3" style="display:none;">
+                <strong>¡Éxito!</strong> Producto agregado al carrito.
+                <button type="button" class="btn-close" data-dismiss="alert"></button>
+            </div>
         </div>
         <div class="col-lg-1 d-none d-lg-block"></div>
 
@@ -96,7 +106,7 @@ if (!empty($idProducto)) {
 
             <!-- Botones al final -->
             <div class="mt-4">
-                <button type="button" class="agregarCarrito w-100">AGREGAR AL CARRITO</button>
+                <a href="" class="agregarCarrito w-100 d-block">AGREGAR AL CARRITO</a>
                 <button type="button" class="reservar w-100 mt-2">RESERVAR</button>
             </div>
         </div>

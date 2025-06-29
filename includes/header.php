@@ -92,7 +92,7 @@
                     <?php } ?>
 
                     <?php if (isset($_SESSION['usuario_id']) && isset($_SESSION['usuario_nombre'])) { ?>
-                    <a class="nav-link text-dark" href="./index.php?genero=Accesorio" data-target="#dropdown-accesorios">Accesorio</a>
+                    <a class="nav-link text-dark" href="./index.php?genero=Accesorio" data-target="#dropdown-accesorios">Accesorios</a>
                     <ul class="dropdown-menu" id="dropdown-accesorios">
                         <li><h5 class="dropdown-header text-dark fw-bold">Accesorios y equipamiento</h5></li>
                         <li><a href="./index.php?genero=Accesorio" class="dropdown-item text-muted fw-bold">Todos los accesorios</a></li>
@@ -122,11 +122,22 @@
             <?php } else {  ?>
 
                 <li class="nav-item d-lg-none">
+                    <a class="text-dark text-decoration-none" href="">Carrito <i class="bi bi-cart"></i></a>
+                </li>
+                <li class="nav-item d-lg-none">
                     <a class="nav-link text-dark" href="<?= BASE_URL ?>pages/logout.php">Cerrar sesión</a>
                 </li>
+                
             </ul>
-            <div class="ms-auto d-none d-lg-block">
-                <a class="btn btn-outline-dark btn-sm text-nowrap" href="<?= BASE_URL ?>pages/logout.php">Cerrar sesión</a>
+            <div class="d-none d-lg-flex ms-auto align-items-center">
+                <div class="me-5">
+                    <a class="text-dark" href="../pages/carrito.php">
+                        <h3><i class="bi bi-cart"></i></h3>
+                    </a>
+                </div>
+                <div>
+                    <a class="btn btn-outline-dark btn-sm text-nowrap" href="<?= BASE_URL ?>pages/logout.php">Cerrar sesión</a>
+                </div>
             </div>
 
             <?php } ?>

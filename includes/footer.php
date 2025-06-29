@@ -13,6 +13,8 @@
 <?php if (isset($_SESSION['usuario_id']) && isset($_SESSION['usuario_nombre'])) { ?>
 <script src="<?= BASE_URL ?>assets/js/contenidoSecciones.js"></script>
 <script src="<?= BASE_URL ?>assets/js/botonTalla.js"></script>
+<script src="<?= BASE_URL ?>assets/js/agregar_carrito.js"></script>
+<script src="<?= BASE_URL ?>assets/js/eliminar_pedido.js"></script>
 <?php } ?>
 </body>
 </html>
