@@ -29,6 +29,11 @@ unset($_SESSION['errores'], $_SESSION['old_data']); // Limpiar errores después 
                 <div>
                     <img src="../assets/images/img-logo-letra.png" alt="" class="img-fluid mx-auto d-block" height="200" width="200">
                 </div>
+                <?php if (isset($_GET['success']) && $_GET['success'] == 1): ?>
+                    <div class="alert alert-success" role="alert">
+                        Tu contraseña ha sido actualizada con éxito. Ahora puedes iniciar sesión.
+                    </div>
+                <?php endif; ?>
                 <form action="../includes/validar_login.php" method="post" id="formLogin">
                     <div class="form-group mb-3">
                         <label for="email" class="form-label">Correo electrónico:</label>
@@ -47,6 +52,7 @@ unset($_SESSION['errores'], $_SESSION['old_data']); // Limpiar errores después 
                     <div class="form-group mb-3">
                         <label for="password" class="form-label">Contraseña:</label>
                         <input type="password" class="form-control form-control-lg" name="password" id="password">
+                        <a href="recuperar_contraseña.php" class="link-secondary link-offset-2 link-offset-3-hover link-dark link-underline-opacity-0 link-underline-opacity-100-hover text-dark">¿Has olvidado la contraseña?</a>
                         <?php if (!empty($errores['password'])): ?>
                             <div class="alert alert-warning alert-dismissible mt-2">
                                     <span><?php echo $errores['password']; ?></span>
@@ -76,5 +82,11 @@ unset($_SESSION['errores'], $_SESSION['old_data']); // Limpiar errores después 
 
 
     <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script>
+        setTimeout(() => {
+            const successAlerts = document.querySelectorAll('.alert-success');
+            successAlerts.forEach(alert => alert.remove());
+        }, 7000); // 7 segundos solo para alertas de éxito
+    </script>
 </body>
 </html>

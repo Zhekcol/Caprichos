@@ -114,6 +114,7 @@ function validarPassword(password) {
 
 formularioRegistro = document.getElementById("formRegistro");
 formularioLogin = document.getElementById("formLogin");
+formularioCambiarPassword = document.getElementById("formChangePassword")
 
 if (formularioRegistro) {
     formularioRegistro.addEventListener("submit", function (e) {
@@ -125,6 +126,14 @@ if (formularioRegistro) {
 
 if (formularioLogin) {
     formularioLogin.addEventListener("submit", function (e) {
+        if (!validarFormulario(this, false)) { // False porque este formulario no validamos nombre
+            e.preventDefault(); // Evita el envío si hay errores
+        }
+    });
+}
+
+if (formularioCambiarPassword) {
+    formularioCambiarPassword.addEventListener("submit", function (e) {
         if (!validarFormulario(this, false)) { // False porque este formulario no validamos nombre
             e.preventDefault(); // Evita el envío si hay errores
         }
