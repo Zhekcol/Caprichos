@@ -45,8 +45,8 @@ $usuarioId = $_SESSION['usuario_id'];
                         $pedido = executeQuery($mysqli, $sql, [$usuarioId], "i")->get_result()->fetch_assoc();
 
                         if ($pedido) {
-                            // Obtener los productos del carrito
-                            $sql = "SELECT p.id, p.nombre, p.precio, p.imagen, dp.cantidad, dp.precio AS subtotal, t.nombre AS talla 
+                            // Obtener los productos del carrito, ajuste el subtotal(JS)
+                            $sql = "SELECT p.id, p.nombre, p.precio, p.imagen, dp.cantidad, dp.precio * dp.cantidad AS subtotal, t.nombre AS talla 
                                     FROM detalles_pedido dp
                                     JOIN productos p ON dp.producto_id = p.id
                                     JOIN tallas t ON dp.talla_id = t.id
@@ -66,7 +66,7 @@ $usuarioId = $_SESSION['usuario_id'];
                                     <td>" . date('d/m/Y') . "</td>
                                     <td>{$producto['talla']}</td>
                                     <td>{$producto['cantidad']}</td>
-                                    <td>" . number_format($producto['subtotal'], 3, '.', ',') . "</td>
+                                    <td>" . number_format($producto['subtotal'], 2, '.', ',') . "</td>
                                     <td>
                                         <a href='#' class='btn btn-danger btn-eliminar' data-href='../includes/eliminar_pedido.php?id={$producto['id']}'>Eliminar</a>
                                     </td>
@@ -77,8 +77,9 @@ $usuarioId = $_SESSION['usuario_id'];
                             echo "
                             <tr class='table-bordered'>
                                 <td colspan='6' class='text-end'><strong>Total:</strong></td>
-                                <td colspan='1'><strong>$" . number_format($total, 3, '.', ',') . "</strong></td>
-                                <td colspan='1'><button type='button' class='btn btn-warning'>Reservar</button></td>
+                                <td colspan='1'><strong>$" . number_format($total, 2, '.', ',') . "</strong></td>
+                                <!--<td colspan='1'><button type='button' class='btn btn-warning'>Reservar</button></td>-->
+                                <td colspan='1'><a href='./reserva.php' class='btn btn-warning'>Reservar</a></td>
                             </tr>";
 
                             } else {

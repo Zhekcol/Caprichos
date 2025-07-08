@@ -75,7 +75,12 @@ if (!empty($idProducto)) {
                                         AGREGAR AL CARRITO
                                     </button>
             </div>
-            <div class="mt-2 mb-2"><button type="button" class="reservar w-100">RESERVAR</button></div>
+            <div class="mt-2 mb-2">
+                <!--<button type="button" class="reservar w-100">RESERVAR</button>-->
+                <a href="./reserva.php" class="reservar w-100 d-block text-center text-white" style="background-color: #212529; padding: .375rem .75rem; border: 1px solid #212529; border-radius: .25rem; text-decoration: none;">
+                    RESERVAR
+                </a>
+            </div>
             <!-- Contenedor para la alerta de Bootstrap (inicialmente oculto) -->
             <div id="alerta-carrito" class="alert alert-success alert-dismissible fade show mt-3" style="display:none;">
                 <strong>¡Éxito!</strong> Producto agregado al carrito.
