@@ -3,11 +3,11 @@
 session_start();
 // include '../includes/db.php';
 include '../includes/header.php';
-
+/*
 if (!isset($_SESSION['usuario_id'])) {
     header('Location: ../pages/login.php');
     exit();
-}
+}*/
 
 $idProducto = $_GET['id'] ?? '';
 $idCategoria = $_GET['categoria_id'] ?? '';
@@ -60,7 +60,7 @@ if (!empty($idProducto)) {
             <!-- Contenido detalles (versión desktop) -->
             <h1 class="h2"><?= $producto['nombre']; ?></h1>
             <p class="text-muted h5"><?= $producto['categoria_nombre'] . " - " . $producto['genero']; ?></p>
-            <h1 class="h4"><?= number_format($producto['precio'], 3, '.', ''); ?>$</h1>
+            <h1 class="h4"><?= number_format($producto['precio'], 2, '.', ''); ?>$</h1>
             <br><br>
             <h1 class="h5">Tallas disponibles:</h1>
             <?php foreach ($tallas_disponibles as $key => $talla) { ?>
@@ -69,17 +69,19 @@ if (!empty($idProducto)) {
                     <?= $talla; ?>
                 </button>
             <?php } ?>
-            <div class="mt-2 mb-2"><button type="button" class="agregarCarrito w-100 d-lg-block agregar-carrito" 
+            <div class="mt-2 mb-2">
+                <button type="button" class="agregarCarrito w-100 d-lg-block agregar-carrito <?= !isset($_SESSION['usuario_id']) ? 'no-sesion' : '' ?>" 
                                         data-id="<?= $producto['id']; ?>" 
                                         data-talla="">
                                         AGREGAR AL CARRITO
-                                    </button>
+                </button>
             </div>
             <div class="mt-2 mb-2">
-                <!--<button type="button" class="reservar w-100">RESERVAR</button>-->
-                <a href="./reserva.php" class="reservar w-100 d-block text-center text-white" style="background-color: #212529; padding: .375rem .75rem; border: 1px solid #212529; border-radius: .25rem; text-decoration: none;">
-                    RESERVAR
-                </a>
+                <button type="button" class="reservar w-100 clic-reservar"
+                        data-id="<?= $producto['id']; ?>" 
+                        data-talla="">
+                        RESERVAR
+                </button>
             </div>
             <!-- Contenedor para la alerta de Bootstrap (inicialmente oculto) -->
             <div id="alerta-carrito" class="alert alert-success alert-dismissible fade show mt-3" style="display:none;">
@@ -94,7 +96,7 @@ if (!empty($idProducto)) {
             <!-- Detalles primero -->
             <h1 class="h2"><?= $producto['nombre']; ?></h1>
             <p class="text-muted h5"><?= $producto['categoria_nombre'] . " - " . $producto['genero']; ?></p>
-            <h1 class="h4"><?= number_format($producto['precio'], 3, '.', ''); ?>$</h1>
+            <h1 class="h4"><?= number_format($producto['precio'], 2, '.', ''); ?>$</h1>
             <br><br>
             <h1 class="h5">Tallas disponibles:</h1>
             <?php foreach ($tallas_disponibles as $key => $talla) { ?>

@@ -61,7 +61,7 @@ $productosAccesorios = array_filter($productos, fn($p) => $p['genero'] === 'Acce
                         <div class="card-body text-start px-0">
                             <h1 class="h5 card-title"><?= $producto['nombre']; ?></h1>
                             <p class="card-text"><?= $producto['descripcion']; ?></p>
-                            <p class="card-text"><?= number_format($producto['precio'], 3, '.', ''); ?>$</p>
+                            <p class="card-text"><?= number_format($producto['precio'], 2, '.', ''); ?>$</p>
                         </div>
                     </a>
                 </div>
@@ -81,7 +81,7 @@ $productosAccesorios = array_filter($productos, fn($p) => $p['genero'] === 'Acce
                         <div class="card-body text-start px-0">
                             <h1 class="h5 card-title"><?= $producto['nombre']; ?></h1>
                             <p class="card-text"><?= $producto['descripcion']; ?></p>
-                            <p class="card-text"><?= number_format($producto['precio'], 3, '.', ''); ?>$</p>
+                            <p class="card-text"><?= number_format($producto['precio'], 2, '.', ''); ?>$</p>
                         </div>
                     </a>
                 </div>
@@ -101,7 +101,7 @@ $productosAccesorios = array_filter($productos, fn($p) => $p['genero'] === 'Acce
                         <div class="card-body text-start px-0">
                             <h1 class="h5 card-title"><?= $producto['nombre']; ?></h1>
                             <p class="card-text"><?= $producto['descripcion']; ?></p>
-                            <p class="card-text"><?= number_format($producto['precio'], 3, '.', ''); ?>$</p>
+                            <p class="card-text"><?= number_format($producto['precio'], 2, '.', ''); ?>$</p>
                         </div>
                     </a>
                 </div>
