@@ -1,6 +1,6 @@
 <?php
 if (session_status() == PHP_SESSION_NONE) {
-session_start();
+    session_start();
 }
 
 if (!isset($_SESSION['usuario_id'])) {
@@ -8,45 +8,53 @@ if (!isset($_SESSION['usuario_id'])) {
     exit();
 }
 
-//include('../includes/db.php');
+function obtenerProductos($mysqli, $genero = '', $categoria = '') {
+    if (!empty($genero)) {
+        if (!empty($categoria)) {
+            $sql = "
+                SELECT p.* 
+                FROM productos p 
+                JOIN categorias c ON p.categoria_id = c.id 
+                WHERE p.genero = ? AND c.nombre = ?
+            ";
+            $stmt = executeQuery($mysqli, $sql, [$genero, $categoria], "ss");
+        } else {
+            $sql = "SELECT * FROM productos WHERE genero = ?";
+            $stmt = executeQuery($mysqli, $sql, [$genero], "s");
+        }
+    } else {
+        $sql = "SELECT * FROM productos";
+        $stmt = executeQuery($mysqli, $sql);
+    }
+
+    $productos = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+    $stmt->close();
+    return $productos;
+}
+
+function clasificarProductosPorGenero($productos) {
+    return [
+        'Hombre' => array_filter($productos, fn($p) => $p['genero'] === 'Hombre'),
+        'Mujer' => array_filter($productos, fn($p) => $p['genero'] === 'Mujer'),
+        'Accesorio' => array_filter($productos, fn($p) => $p['genero'] === 'Accesorio'),
+    ];
+}
 
 function obtenerCategoriasPorGenero($mysqli, $genero) {
-    // Consulta SQL para obtener categorías por género
     $sql = "
         SELECT DISTINCT c.nombre
         FROM categorias c
         JOIN productos p ON c.id = p.categoria_id
         WHERE p.genero = ?
     ";
-
-    // Parámetros y tipos para la consulta preparada
-    $params = [$genero];
-    $types = "s"; // "s" porque $genero es un string
-
-    // Ejecutar la consulta usando tu función executeQuery
-    $stmt = executeQuery($mysqli, $sql, $params, $types);
-
-    // Obtener el resultado de la consulta
+    $stmt = executeQuery($mysqli, $sql, [$genero], "s");
     $resultado = $stmt->get_result();
 
-    // Convertir el resultado en un array asociativo
     $categorias = [];
     while ($fila = $resultado->fetch_assoc()) {
         $categorias[] = $fila;
     }
-
-    // Cerrar el statement
     $stmt->close();
 
     return $categorias;
 }
-// Array de géneros
-$generos = ["Hombre", "Mujer", "Accesorio"];
-// Array para almacenar las categorías por género
-$categoriasPorGenero = [];
-// Obtener categorías para cada género
-foreach ($generos as $genero) {
-    $categoriasPorGenero[$genero] = obtenerCategoriasPorGenero($mysqli, $genero);
-}
-
-?>

@@ -3,8 +3,12 @@
     include_once __DIR__ . '/../config/config.php';
 
     if (isset($_SESSION['usuario_id']) && isset($_SESSION['usuario_nombre'])) {
-        include __DIR__ . '/../includes/filtrosProductos.php'; 
+        include_once __DIR__ . '/../includes/filtrosProductos.php'; 
     }
+    $productosIndex = (defined('SECCION_ACTUAL') && SECCION_ACTUAL === 'admin')
+    ? BASE_URL . 'admin/productos/index.php'
+    : BASE_URL . 'pages/index.php';
+
 ?>
 
 <!DOCTYPE html>
@@ -35,7 +39,7 @@
     <div class="container">
 
         <!-- Logotipo -->
-        <a class="navbar-brand" href="<?= isset($_SESSION['usuario_id']) ? BASE_URL . 'pages/index.php' : BASE_URL . 'index.php' ?>">
+        <a class="navbar-brand" href="<?= isset($_SESSION['usuario_id']) ? $productosIndex : BASE_URL . 'index.php' ?>">
             <img class="img-fluid" src="<?= BASE_URL ?>assets/images/img-logo-letra.png" alt="" height="50" width="120">
         </a>
         <!-- Botón de toggler para dispositivos móviles -->
@@ -46,19 +50,19 @@
         <div class="collapse navbar-collapse" id="headerMenu">
             <ul class="navbar-nav w-100 d-flex flex-column align-items-start d-lg-flex flex-lg-row justify-content-lg-center gap-lg-4">
                 <li class="nav-item">
-                    <a class="nav-link text-dark inicio" href="<?= isset($_SESSION['usuario_id']) ? BASE_URL . 'pages/index.php' : BASE_URL . 'index.php' ?>">Inicio</a>
+                    <a class="nav-link text-dark inicio" href="<?= isset($_SESSION['usuario_id']) ? $productosIndex : BASE_URL . 'index.php' ?>">Inicio</a>
                 </li>
                 <li class="nav-item">
                     <?php if (!isset($_SESSION['usuario_id']) && !isset($_SESSION['usuario_nombre'])) { ?>
                         <a class="nav-link text-dark" href="<?= BASE_URL ?>#hombres">Hombre</a>
                     <?php } else { ?>
-                        <a class="nav-link text-dark" href="<?= BASE_URL ?>pages/index.php?genero=Hombre" data-target="#dropdown-hombres">Hombre</a>
+                        <a class="nav-link text-dark" href="<?= $productosIndex ?>?genero=Hombre" data-target="#dropdown-hombres">Hombre</a>
                     <ul class="dropdown-menu" id="dropdown-hombres">
                         <li><h5 class="dropdown-header text-dark fw-bold">Ropa</h5></li>
-                        <li><a href="<?= BASE_URL ?>pages/index.php?genero=Hombre" class="dropdown-item text-muted fw-bold">Toda la ropa</a></li>
-                        <?php foreach ($categoriasPorGenero[$generos[0]] as $categoria) { ?>
+                        <li><a href="<?= $productosIndex ?>?genero=Hombre" class="dropdown-item text-muted fw-bold">Toda la ropa</a></li>
+                        <?php foreach ($categoriasPorGenero['Hombre'] as $categoria) { ?>
                         <li>
-                            <a href="<?= BASE_URL ?>pages/index.php?genero=Hombre&categoria=<?= urlencode($categoria['nombre']); ?>" class="dropdown-item text-muted fw-bold">
+                            <a href="<?= $productosIndex ?>?genero=Hombre&categoria=<?= urlencode($categoria['nombre']); ?>" class="dropdown-item text-muted fw-bold">
                                 <?= $categoria['nombre']; ?>
                             </a>
                         </li>
@@ -70,13 +74,13 @@
                     <?php if (!isset($_SESSION['usuario_id']) && !isset($_SESSION['usuario_nombre'])) { ?>
                         <a class="nav-link text-dark" href="<?= BASE_URL ?>#mujeres">Mujer</a>
                     <?php } else { ?>
-                        <a class="nav-link text-dark" href="<?= BASE_URL ?>pages/index.php?genero=Mujer" data-target="#dropdown-mujeres">Mujer</a>
+                        <a class="nav-link text-dark" href="<?= $productosIndex ?>?genero=Mujer" data-target="#dropdown-mujeres">Mujer</a>
                     <ul class="dropdown-menu" id="dropdown-mujeres">
                         <li><h5 class="dropdown-header text-dark fw-bold">Ropa</h5></li>
-                        <li><a href="<?= BASE_URL ?>pages/index.php?genero=Mujer" class="dropdown-item text-muted fw-bold">Toda la ropa</a></li>
-                        <?php foreach ($categoriasPorGenero[$generos[1]] as $categoria) { ?>
+                        <li><a href="<?= $productosIndex ?>?genero=Mujer" class="dropdown-item text-muted fw-bold">Toda la ropa</a></li>
+                        <?php foreach ($categoriasPorGenero['Mujer'] as $categoria) { ?>
                         <li>
-                            <a href="<?= BASE_URL ?>pages/index.php?genero=Mujer&categoria=<?= urlencode($categoria['nombre']); ?>" class="dropdown-item text-muted fw-bold">
+                            <a href="<?= $productosIndex ?>?genero=Mujer&categoria=<?= urlencode($categoria['nombre']); ?>" class="dropdown-item text-muted fw-bold">
                                 <?= $categoria['nombre']; ?>
                             </a>
                         </li>
@@ -88,13 +92,13 @@
                     <?php if (!isset($_SESSION['usuario_id']) && !isset($_SESSION['usuario_nombre'])) { ?>
                         <a class="nav-link text-dark" href="<?= BASE_URL ?>#accesorios">Accesorios</a>
                     <?php } else { ?>
-                        <a class="nav-link text-dark" href="<?= BASE_URL ?>pages/index.php?genero=Accesorio" data-target="#dropdown-accesorios">Accesorios</a>
+                        <a class="nav-link text-dark" href="<?= $productosIndex ?>?genero=Accesorio" data-target="#dropdown-accesorios">Accesorios</a>
                     <ul class="dropdown-menu" id="dropdown-accesorios">
                         <li><h5 class="dropdown-header text-dark fw-bold">Accesorios y equipamiento</h5></li>
-                        <li><a href="<?= BASE_URL ?>pages/index.php?genero=Accesorio" class="dropdown-item text-muted fw-bold">Todos los accesorios</a></li>
-                        <?php foreach ($categoriasPorGenero[$generos[2]] as $categoria) { ?>
+                        <li><a href="<?= $productosIndex ?>?genero=Accesorio" class="dropdown-item text-muted fw-bold">Todos los accesorios</a></li>
+                        <?php foreach ($categoriasPorGenero['Accesorio'] as $categoria) { ?>
                         <li>
-                            <a href="<?= BASE_URL ?>pages/index.php?genero=Accesorio&categoria=<?= urlencode($categoria['nombre']); ?>" class="dropdown-item text-muted fw-bold">
+                            <a href="<?= $productosIndex ?>?genero=Accesorio&categoria=<?= urlencode($categoria['nombre']); ?>" class="dropdown-item text-muted fw-bold">
                                 <?= $categoria['nombre']; ?>
                             </a>
                         </li>
