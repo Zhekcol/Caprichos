@@ -1,14 +1,13 @@
-<?php
+<?php 
 session_start();
 
-if (!isset($_SESSION['usuario_id'])) {
-    header('Location: ../pages/login.php');
-    exit();
+if ((!isset($_SESSION['usuario_id'])) && ($_SESSION['usuario_rol'] !== "admin")) {
+    header("Location: ../../pages/login.php");
+    exit;
 }
-
 //Se deben llamar estos archivos para las funciones y la conexión a la db para la variable mysqli
-include_once '../includes/db.php';
-include_once '../includes/filtrosProductos.php';
+include_once '../../includes/db.php';
+include_once '../../includes/filtrosProductos.php';
 
 // 1. Obtener valores de la URL (por defecto 'Hombre' si no hay)
 $genero = $_GET['genero'] ?? '';
@@ -23,10 +22,11 @@ $categoriasPorGenero = [];
 foreach (['Hombre', 'Mujer', 'Accesorio'] as $g) {
     $categoriasPorGenero[$g] = obtenerCategoriasPorGenero($mysqli, $g);
 }
+
 //Se define sección para automatizar los enlaces del header
-define('SECCION_ACTUAL', 'cliente');
+define('SECCION_ACTUAL', 'admin');
 // 4. Incluir el header, ya con las variables listas
-include '../includes/header.php';
+include '../../includes/header.php';
 
 ?>
 
@@ -91,4 +91,5 @@ include '../includes/header.php';
 </div>
 
 
-<?php include '../includes/footer.php'; ?>
+<?php include '../../includes/footer.php'; ?>
+
