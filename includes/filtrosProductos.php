@@ -8,7 +8,7 @@ if (!isset($_SESSION['usuario_id'])) {
     exit();
 }
 
-include('../includes/db.php');
+//include('../includes/db.php');
 
 function obtenerCategoriasPorGenero($mysqli, $genero) {
     // Consulta SQL para obtener categorías por género

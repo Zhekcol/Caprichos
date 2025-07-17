@@ -12,6 +12,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
     botonesCarrito.forEach(boton => {
         boton.addEventListener('click', function() {
+            
+            // Verifica si el usuario tiene sesión usando la clase '.no-sesion'
+            if (this.classList.contains('no-sesion')) {
+                alert("Agrega al carrito iniciando sesión. O si lo prefieres... ¡reserva tu producto ahora mismo!");
+                return; // Detiene la ejecución para no continuar con el fetch
+            }
+
             const productoId = this.getAttribute('data-id');
 
             if (!tallaSeleccionada) {

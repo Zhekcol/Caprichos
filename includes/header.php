@@ -1,7 +1,9 @@
-<?php include_once __DIR__ . '/../config/config.php'; ?>
 <?php
+    require_once __DIR__ . '/../includes/db.php';
+    include_once __DIR__ . '/../config/config.php';
+
     if (isset($_SESSION['usuario_id']) && isset($_SESSION['usuario_nombre'])) {
-        include '../includes/filtrosProductos.php'; 
+        include __DIR__ . '/../includes/filtrosProductos.php'; 
     }
 ?>
 
@@ -33,7 +35,7 @@
     <div class="container">
 
         <!-- Logotipo -->
-        <a class="navbar-brand" href="./index.php">
+        <a class="navbar-brand" href="<?= isset($_SESSION['usuario_id']) ? BASE_URL . 'pages/index.php' : BASE_URL . 'index.php' ?>">
             <img class="img-fluid" src="<?= BASE_URL ?>assets/images/img-logo-letra.png" alt="" height="50" width="120">
         </a>
         <!-- Botón de toggler para dispositivos móviles -->
@@ -44,21 +46,19 @@
         <div class="collapse navbar-collapse" id="headerMenu">
             <ul class="navbar-nav w-100 d-flex flex-column align-items-start d-lg-flex flex-lg-row justify-content-lg-center gap-lg-4">
                 <li class="nav-item">
-                    <a class="nav-link text-dark inicio" href="./index.php">Inicio</a>
+                    <a class="nav-link text-dark inicio" href="<?= isset($_SESSION['usuario_id']) ? BASE_URL . 'pages/index.php' : BASE_URL . 'index.php' ?>">Inicio</a>
                 </li>
                 <li class="nav-item">
                     <?php if (!isset($_SESSION['usuario_id']) && !isset($_SESSION['usuario_nombre'])) { ?>
-                    <a class="nav-link text-dark" href="#hombres">Hombre</a>
-                    <?php } ?>
-                    
-                    <?php if (isset($_SESSION['usuario_id']) && isset($_SESSION['usuario_nombre'])) { ?>
-                    <a class="nav-link text-dark" href="./index.php?genero=Hombre" data-target="#dropdown-hombres">Hombre</a>
+                        <a class="nav-link text-dark" href="<?= BASE_URL ?>#hombres">Hombre</a>
+                    <?php } else { ?>
+                        <a class="nav-link text-dark" href="<?= BASE_URL ?>pages/index.php?genero=Hombre" data-target="#dropdown-hombres">Hombre</a>
                     <ul class="dropdown-menu" id="dropdown-hombres">
                         <li><h5 class="dropdown-header text-dark fw-bold">Ropa</h5></li>
-                        <li><a href="./index.php?genero=Hombre" class="dropdown-item text-muted fw-bold">Toda la ropa</a></li>
+                        <li><a href="<?= BASE_URL ?>pages/index.php?genero=Hombre" class="dropdown-item text-muted fw-bold">Toda la ropa</a></li>
                         <?php foreach ($categoriasPorGenero[$generos[0]] as $categoria) { ?>
                         <li>
-                            <a href="./index.php?genero=Hombre&categoria=<?= urlencode($categoria['nombre']); ?>" class="dropdown-item text-muted fw-bold">
+                            <a href="<?= BASE_URL ?>pages/index.php?genero=Hombre&categoria=<?= urlencode($categoria['nombre']); ?>" class="dropdown-item text-muted fw-bold">
                                 <?= $categoria['nombre']; ?>
                             </a>
                         </li>
@@ -68,17 +68,15 @@
                 </li>
                 <li class="nav-item">
                     <?php if (!isset($_SESSION['usuario_id']) && !isset($_SESSION['usuario_nombre'])) { ?>
-                    <a class="nav-link text-dark" href="#mujeres">Mujer</a>
-                    <?php } ?>
-                    
-                    <?php if (isset($_SESSION['usuario_id']) && isset($_SESSION['usuario_nombre'])) { ?>
-                        <a class="nav-link text-dark" href="./index.php?genero=Mujer" data-target="#dropdown-mujeres">Mujer</a>
+                        <a class="nav-link text-dark" href="<?= BASE_URL ?>#mujeres">Mujer</a>
+                    <?php } else { ?>
+                        <a class="nav-link text-dark" href="<?= BASE_URL ?>pages/index.php?genero=Mujer" data-target="#dropdown-mujeres">Mujer</a>
                     <ul class="dropdown-menu" id="dropdown-mujeres">
                         <li><h5 class="dropdown-header text-dark fw-bold">Ropa</h5></li>
-                        <li><a href="./index.php?genero=Mujer" class="dropdown-item text-muted fw-bold">Toda la ropa</a></li>
+                        <li><a href="<?= BASE_URL ?>pages/index.php?genero=Mujer" class="dropdown-item text-muted fw-bold">Toda la ropa</a></li>
                         <?php foreach ($categoriasPorGenero[$generos[1]] as $categoria) { ?>
                         <li>
-                            <a href="./index.php?genero=Mujer&categoria=<?= urlencode($categoria['nombre']); ?>" class="dropdown-item text-muted fw-bold">
+                            <a href="<?= BASE_URL ?>pages/index.php?genero=Mujer&categoria=<?= urlencode($categoria['nombre']); ?>" class="dropdown-item text-muted fw-bold">
                                 <?= $categoria['nombre']; ?>
                             </a>
                         </li>
@@ -88,17 +86,15 @@
                 </li>
                 <li class="nav-item">
                     <?php if (!isset($_SESSION['usuario_id']) && !isset($_SESSION['usuario_nombre'])) { ?>
-                    <a class="nav-link text-dark" href="#accesorios">Accesorios</a>
-                    <?php } ?>
-
-                    <?php if (isset($_SESSION['usuario_id']) && isset($_SESSION['usuario_nombre'])) { ?>
-                    <a class="nav-link text-dark" href="./index.php?genero=Accesorio" data-target="#dropdown-accesorios">Accesorios</a>
+                        <a class="nav-link text-dark" href="<?= BASE_URL ?>#accesorios">Accesorios</a>
+                    <?php } else { ?>
+                        <a class="nav-link text-dark" href="<?= BASE_URL ?>pages/index.php?genero=Accesorio" data-target="#dropdown-accesorios">Accesorios</a>
                     <ul class="dropdown-menu" id="dropdown-accesorios">
                         <li><h5 class="dropdown-header text-dark fw-bold">Accesorios y equipamiento</h5></li>
-                        <li><a href="./index.php?genero=Accesorio" class="dropdown-item text-muted fw-bold">Todos los accesorios</a></li>
+                        <li><a href="<?= BASE_URL ?>pages/index.php?genero=Accesorio" class="dropdown-item text-muted fw-bold">Todos los accesorios</a></li>
                         <?php foreach ($categoriasPorGenero[$generos[2]] as $categoria) { ?>
                         <li>
-                            <a href="./index.php?genero=Accesorio&categoria=<?= urlencode($categoria['nombre']); ?>" class="dropdown-item text-muted fw-bold">
+                            <a href="<?= BASE_URL ?>pages/index.php?genero=Accesorio&categoria=<?= urlencode($categoria['nombre']); ?>" class="dropdown-item text-muted fw-bold">
                                 <?= $categoria['nombre']; ?>
                             </a>
                         </li>
@@ -111,18 +107,18 @@
 
                 <!-- Botón "Iniciar sesión" como un elemento más del menú (visible solo en sm y md) -->
                 <li class="nav-item d-lg-none">
-                    <a class="nav-link text-dark" href="./pages/login.php">Iniciar sesión</a>
+                    <a class="nav-link text-dark" href="<?= BASE_URL ?>pages/login.php">Iniciar sesión</a>
                 </li>
             </ul>
             <!-- Botón "Iniciar sesión" visible solo en pantallas grandes (lg) -->
             <div class="ms-auto d-none d-lg-block">
-                <a class="btn btn-outline-dark btn-sm text-nowrap" href="./pages/login.php">Iniciar sesión</a>
+                <a class="btn btn-outline-dark btn-sm text-nowrap" href="<?= BASE_URL ?>pages/login.php">Iniciar sesión</a>
             </div>
 
             <?php } else {  ?>
 
                 <li class="nav-item d-lg-none">
-                    <a class="text-dark text-decoration-none" href="">Carrito <i class="bi bi-cart"></i></a>
+                    <a class="text-dark text-decoration-none" href="<?= BASE_URL ?>pages/carrito.php">Carrito <i class="bi bi-cart"></i></a>
                 </li>
                 <li class="nav-item d-lg-none">
                     <a class="nav-link text-dark" href="<?= BASE_URL ?>pages/logout.php">Cerrar sesión</a>
@@ -131,12 +127,12 @@
             </ul>
             <div class="d-none d-lg-flex ms-auto align-items-center">
                 <div class="me-5">
-                    <a class="text-dark" href="../pages/carrito.php">
+                    <a class="text-dark" href="<?= BASE_URL ?>pages/carrito.php">
                         <h3><i class="bi bi-cart"></i></h3>
                     </a>
                 </div>
                 <div>
-                    <a class="btn btn-outline-dark btn-sm text-nowrap" href="<?= BASE_URL ?>pages/logout.php">Cerrar sesión</a>
+                    <a class="btn btn-outline-dark btn-sm text-nowrap" href="<?= BASE_URL ?>pages/logout.php?redirect=<?= urlencode($_SERVER['REQUEST_URI']) ?>">Cerrar sesión</a>
                 </div>
             </div>
 
@@ -145,4 +141,3 @@
                 
     </div>
 </nav>
-
