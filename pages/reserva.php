@@ -20,26 +20,29 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !isset($_SESSION['usuario_id'])) {
 // Obtener datos del producto y talla desde la URL
 $producto_id = $_GET['producto_id'] ?? '';
 $talla = $_GET['talla'] ?? '';
+$pedido_id = $_GET['pedido_id'] ?? ''; // Esto es nuevo: se envía desde carrito.php
 
-if (empty($producto_id)) {
-    die("No se ha seleccionado ningún producto para reservar.");
-}
-
-// Obtener información del producto
-try {
-    $sql = "SELECT p.*, c.nombre AS categoria_nombre 
-            FROM productos p 
-            JOIN categorias c ON p.categoria_id = c.id 
-            WHERE p.id = ?";
-    $stmt = executeQuery($mysqli, $sql, [$producto_id], "i");
-    $producto = $stmt->get_result()->fetch_assoc();
-    $stmt->close();
-    
-    if (!$producto) {
-        throw new Exception("Producto no encontrado");
+if (!$pedido_id) {
+    if (empty($producto_id)) {
+        die("No se ha seleccionado ningún producto para reservar.");
     }
-} catch (Exception $e) {
-    die($e->getMessage());
+
+    // Obtener información del producto
+    try {
+        $sql = "SELECT p.*, c.nombre AS categoria_nombre 
+                FROM productos p 
+                JOIN categorias c ON p.categoria_id = c.id 
+                WHERE p.id = ?";
+        $stmt = executeQuery($mysqli, $sql, [$producto_id], "i");
+        $producto = $stmt->get_result()->fetch_assoc();
+        $stmt->close();
+        
+        if (!$producto) {
+            throw new Exception("Producto no encontrado");
+        }
+    } catch (Exception $e) {
+        die($e->getMessage());
+    }
 }
 
 // Obtener datos del usuario
@@ -63,6 +66,7 @@ if (isset($_SESSION['usuario_id'])) {
 <div class="container mt-5">
     <h2 class="mb-4">Formulario de Reserva</h2>
     
+    <?php if (!$pedido_id): ?>
     <!-- Mostrar información del producto -->
     <div class="card mb-4">
         <div class="card-body">
@@ -75,11 +79,16 @@ if (isset($_SESSION['usuario_id'])) {
             </p>
         </div>
     </div>
+    <?php endif; ?>
     
-    <form action="procesar_reserva.php" method="POST">
+    <form action="../includes/procesar_reserva.php" method="POST">
         <!-- Campos ocultos con la información del producto -->
-        <input type="hidden" name="producto_id" value="<?= htmlspecialchars($producto_id) ?>">
-        <input type="hidden" name="talla" value="<?= htmlspecialchars($talla) ?>">
+        <?php if ($pedido_id): ?>
+            <input type="hidden" name="pedido_id" value="<?= htmlspecialchars($pedido_id) ?>">
+        <?php else: ?>
+            <input type="hidden" name="producto_id" value="<?= htmlspecialchars($producto_id) ?>">
+            <input type="hidden" name="talla" value="<?= htmlspecialchars($talla) ?>">
+        <?php endif; ?>
 
         <div class="mb-3"> <!-- Campo de nombre -->
             <label for="nombre" class="form-label">Nombre</label>

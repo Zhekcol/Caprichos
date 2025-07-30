@@ -1,6 +1,7 @@
 <?php
 session_start();
-include '../includes/header.php';
+require_once __DIR__ . '/../includes/db.php';
+include_once __DIR__ . '/../includes/header.php';
 
 if (!isset($_SESSION['usuario_id'])) {
     header('Location: ../pages/login.php');
@@ -78,8 +79,12 @@ $usuarioId = $_SESSION['usuario_id'];
                             <tr class='table-bordered'>
                                 <td colspan='6' class='text-end'><strong>Total:</strong></td>
                                 <td colspan='1'><strong>$" . number_format($total, 2, '.', ',') . "</strong></td>
-                                <!--<td colspan='1'><button type='button' class='btn btn-warning'>Reservar</button></td>-->
-                                <td colspan='1'><a href='./reserva.php' class='btn btn-warning'>Reservar</a></td>
+                                <td colspan='1'>
+                                <form action='reserva.php' method='GET'>
+                                    <input type='hidden' name='pedido_id' value='". $pedido["id"] ."'>
+                                    <button type='submit' class='btn btn-warning'>Reservar</button>
+                                </form>
+                                </td>
                             </tr>";
 
                             } else {
