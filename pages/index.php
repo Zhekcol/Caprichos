@@ -1,39 +1,59 @@
 <?php
 session_start();
+include '../includes/header.php';
 
 if (!isset($_SESSION['usuario_id'])) {
     header('Location: ../pages/login.php');
     exit();
 }
-
-//Se deben llamar estos archivos para las funciones y la conexión a la db para la variable mysqli
-include_once '../includes/db.php';
-include_once '../includes/filtrosProductos.php';
-
-// 1. Obtener valores de la URL (por defecto 'Hombre' si no hay)
+// echo "<pre>";
+// print_r($_SESSION);
+// echo "</pre>";
+// Obtener el género y la categoría desde la URL
 $genero = $_GET['genero'] ?? '';
 $categoria = $_GET['categoria'] ?? '';
 
-// 2. Obtener y clasificar productos
-$productos = obtenerProductos($mysqli, $genero, $categoria);
-$clasificados = clasificarProductosPorGenero($productos);
+// Si se selecciona un género, obtener los productos de ese género
+if (!empty($genero)) {
+    if (!empty($categoria)) {
+        // Consulta SQL para filtrar productos por género y categoría
+        $sql = "
+            SELECT p.* 
+            FROM productos p 
+            JOIN categorias c ON p.categoria_id = c.id 
+            WHERE p.genero = ? AND c.nombre = ?
+        ";
+        $stmt = executeQuery($mysqli, $sql, [$genero, $categoria], "ss");
+    } else {
+        // Si solo se selecciona un género, obtener todos los productos de ese género
+        $sql = "SELECT * FROM productos WHERE genero = ?";
+        $stmt = executeQuery($mysqli, $sql, [$genero], "s");
+    }
 
-// 3. Obtener categorías por género (necesario para el header)
-$categoriasPorGenero = [];
-foreach (['Hombre', 'Mujer', 'Accesorio'] as $g) {
-    $categoriasPorGenero[$g] = obtenerCategoriasPorGenero($mysqli, $g);
+    $productos = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+    $stmt->close();
+} else {
+    // Si no hay filtro, obtener todos los productos por defecto
+    $sql = "SELECT * FROM productos";
+    $stmt = executeQuery($mysqli, $sql);
+    $productos = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+    $stmt->close();
 }
-//Se define sección para automatizar los enlaces del header
-define('SECCION_ACTUAL', 'cliente');
-// 4. Incluir el header, ya con las variables listas
-include '../includes/header.php';
 
+// Limpiar la sesión después de usarla
+unset($_SESSION['productos_filtrados']);
+unset($_SESSION['filtrado_realizado']);
+
+// Filtrar los productos por género
+$productosHombres = array_filter($productos, fn($p) => $p['genero'] === 'Hombre');
+$productosMujeres = array_filter($productos, fn($p) => $p['genero'] === 'Mujer');
+$productosAccesorios = array_filter($productos, fn($p) => $p['genero'] === 'Accesorio');
 ?>
 
 <!-- Catálogo Hombres -->
 <div class="container contenido-hombres" id="hombres">
     <div class="row row-cols-2 row-cols-md-2 row-cols-lg-4 g-2">
-        <?php foreach ($clasificados['Hombre'] as $producto) { ?>
+        <?php foreach ($productosHombres as $producto) { ?>
             <div class="col mb-4">
                 <div class="card border-light">
                     <a href="./productos.php?id=<?= $producto['id']; ?>&categoria_id=<?= $producto['categoria_id']; ?>" class="text-decoration-none text-dark align-items-start">
@@ -53,7 +73,7 @@ include '../includes/header.php';
 <!-- Catálogo Mujeres -->
 <div class="container contenido-mujeres" id="mujeres">
     <div class="row row-cols-2 row-cols-md-2 row-cols-lg-4 g-2">
-        <?php foreach ($clasificados['Mujer'] as $producto) { ?>
+        <?php foreach ($productosMujeres as $producto) { ?>
             <div class="col mb-4">
                 <div class="card border-light">
                     <a href="./productos.php?id=<?= $producto['id']; ?>&categoria_id=<?= $producto['categoria_id']; ?>" class="text-decoration-none text-dark align-items-start">
@@ -73,7 +93,7 @@ include '../includes/header.php';
 <!-- Catálogo Accesorios -->
 <div class="container contenido-accesorios" id="accesorios">
     <div class="row row-cols-2 row-cols-md-2 row-cols-lg-4 g-2">
-        <?php foreach ($clasificados['Accesorio'] as $producto) { ?>
+        <?php foreach ($productosAccesorios as $producto) { ?>
             <div class="col mb-4">
                 <div class="card border-light">
                     <a href="./productos.php?id=<?= $producto['id']; ?>&categoria_id=<?= $producto['categoria_id']; ?>" class="text-decoration-none text-dark align-items-start">
