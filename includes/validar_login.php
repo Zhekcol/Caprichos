@@ -48,7 +48,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     
             // Redirige según el rol
             if ($usuario['rol'] === 'admin') {
-                header('Location: ../admin/dashboard.php');
+                // header('Location: ../admin/dashboard.php');
+                header('Location: ../admin/inventario.php');
             } else {
                 header('Location: ../pages/index.php');
             }

@@ -102,6 +102,11 @@
                     </ul>
                     <?php } ?>
                 </li>
+                <li class="nav-item">
+                    <?php if (isset($_SESSION['usuario_rol']) && $_SESSION['usuario_rol'] === 'admin'){ ?>
+                        <a class="nav-link text-dark" href="<?= BASE_URL . 'admin/inventario.php'?>">Inventario</a>
+                    <?php } ?>
+                </li>
 
                 <?php if (!isset($_SESSION['usuario_id']) && !isset($_SESSION['usuario_nombre'])) { ?>
 

@@ -25,8 +25,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $row = $result->fetch_assoc();
         $user_id = $row["user_id"];
 
-        // 2. Actualizar la contraseña
-        $sql_update = "UPDATE usuarios SET password = ? WHERE id = ?";
+        // 2. Actualizar la contraseña y rol
+        $sql_update = "UPDATE usuarios SET rol= 'cliente', password = ? WHERE id = ?";
         executeQuery($mysqli, $sql_update, [$nueva_password_hash, $user_id], "si");
 
         // 3. Eliminar el código usado (opcional pero recomendado)
