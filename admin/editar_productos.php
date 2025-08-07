@@ -15,7 +15,7 @@ if (!isset($_SESSION['usuario_id']) || $_SESSION['usuario_rol'] !== 'admin') {
 $productoId = (int)$_GET['id'];*/
 
 $esNuevo = !isset($_GET['id']);
-$productoId = $esNuevo ? null : (int)$_GET['id'];
+$productoId = $esNuevo ? null : (int) $_GET['id'];
 
 
 // Obtener datos del producto
@@ -66,19 +66,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // $categoria_id = intval($_POST['categoria_id']);
     // Verifica si se envió una nueva categoría
     if (!empty($_POST['nueva_categoria'])) {
-      $nueva_categoria = trim($_POST['nueva_categoria']);
-      // Verifica si ya existe (opcional)
-      $check = executeQuery($mysqli, "SELECT id FROM categorias WHERE nombre = ?", [$nueva_categoria], 's')->get_result();
-      if ($check->num_rows > 0) {
-          $row = $check->fetch_assoc();
-          $categoria_id = $row['id']; // Ya existe
-      } else {
-          // Insertar nueva categoría
-          executeQuery($mysqli, "INSERT INTO categorias (nombre) VALUES (?)", [$nueva_categoria], 's');
-          $categoria_id = $mysqli->insert_id; // Usar el nuevo ID
-      }
+        $nueva_categoria = trim($_POST['nueva_categoria']);
+        // Verifica si ya existe (opcional)
+        $check = executeQuery($mysqli, "SELECT id FROM categorias WHERE nombre = ?", [$nueva_categoria], 's')->get_result();
+        if ($check->num_rows > 0) {
+            $row = $check->fetch_assoc();
+            $categoria_id = $row['id']; // Ya existe
+        } else {
+            // Insertar nueva categoría
+            executeQuery($mysqli, "INSERT INTO categorias (nombre) VALUES (?)", [$nueva_categoria], 's');
+            $categoria_id = $mysqli->insert_id; // Usar el nuevo ID
+        }
     } else {
-      $categoria_id = intval($_POST['categoria_id']); // Usar la seleccionada
+        $categoria_id = intval($_POST['categoria_id']); // Usar la seleccionada
     }
 
     // Manejo de imagen (si se sube una nueva)
@@ -113,25 +113,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // Verificar existencia y actualizar o insertar
             $check = executeQuery($mysqli, "SELECT 1 FROM producto_talla WHERE producto_id = ? AND talla_id = ?", [$productoId, $talla_id], 'ii')->get_result();
             if ($check->num_rows > 0) {
-              executeQuery($mysqli, 
-                  "UPDATE producto_talla SET stock = ? WHERE producto_id = ? AND talla_id = ?", 
-                  [$stock, $productoId, $talla_id], 
-                  'iii'
-              );
+                executeQuery(
+                    $mysqli,
+                    "UPDATE producto_talla SET stock = ? WHERE producto_id = ? AND talla_id = ?",
+                    [$stock, $productoId, $talla_id],
+                    'iii'
+                );
             } else {
-              executeQuery($mysqli, 
-                  "INSERT INTO producto_talla (producto_id, talla_id, stock, stock_reservado) VALUES (?, ?, ?, 0)", 
-                  [$productoId, $talla_id, $stock], 
-                  'iii'
-              );
+                executeQuery(
+                    $mysqli,
+                    "INSERT INTO producto_talla (producto_id, talla_id, stock, stock_reservado) VALUES (?, ?, ?, 0)",
+                    [$productoId, $talla_id, $stock],
+                    'iii'
+                );
             }
         }
         // Eliminar tallas con stock y reservado vacíos
         executeQuery($mysqli, "
             DELETE FROM producto_talla
             WHERE producto_id = ?
-              AND (stock IS NULL OR stock = 0)
-              AND (stock_reservado IS NULL OR stock_reservado = 0)
+            AND (stock IS NULL OR stock = 0)
+            AND (stock_reservado IS NULL OR stock_reservado = 0)
         ", [$productoId], 'i');
     }
 
@@ -148,15 +150,18 @@ include_once __DIR__ . '/../includes/header.php';
     <form method="POST" enctype="multipart/form-data" class="mt-4">
         <div class="mb-3">
             <label>Nombre:</label>
-            <input type="text" name="nombre" value="<?= htmlspecialchars($producto['nombre']) ?>" class="form-control" required>
+            <input type="text" name="nombre" value="<?= htmlspecialchars($producto['nombre']) ?>" class="form-control"
+                required>
         </div>
         <div class="mb-3">
             <label>Descripción:</label>
-            <textarea name="descripcion" class="form-control" required><?= htmlspecialchars($producto['descripcion']) ?></textarea>
+            <textarea name="descripcion" class="form-control"
+                required><?= htmlspecialchars($producto['descripcion']) ?></textarea>
         </div>
         <div class="mb-3">
             <label>Precio:</label>
-            <input type="number" name="precio" step="0.01" value="<?= $producto['precio'] ?>" class="form-control" required>
+            <input type="number" name="precio" step="0.01" value="<?= $producto['precio'] ?>" class="form-control"
+                required>
         </div>
         <div class="mb-3">
             <label>Género:</label>
@@ -176,7 +181,8 @@ include_once __DIR__ . '/../includes/header.php';
                 <?php endwhile; ?>
             </select>
             <small class="text-muted">O crea una nueva categoría abajo:</small>
-            <input type="text" name="nueva_categoria" class="form-control mt-2" placeholder="Nueva categoría (opcional)">
+            <input type="text" name="nueva_categoria" class="form-control mt-2"
+                placeholder="Nueva categoría (opcional)">
         </div>
         <div class="mb-3">
             <label>Imagen actual:</label><br>
@@ -185,12 +191,21 @@ include_once __DIR__ . '/../includes/header.php';
             <input type="file" name="imagen" class="form-control">
         </div>
         <h5>Stock por Talla:</h5>
+        <div class="d-flex flex-wrap gap-3 align-items-end">
         <?php while ($talla = $tallas->fetch_assoc()): ?>
-            <div class="mb-2">
-                <label><?= $talla['nombre'] ?>:</label>
-                <input type="number" name="tallas[<?= $talla['id'] ?>]" value="<?= $talla['stock'] ?? 0 ?>" class="form-control" required>
+            <div class="text-center" style="width: 80px;">
+            <label style="font-size: 0.9rem;"><?= $talla['nombre'] ?>:</label>
+            <input type="number"
+                name="tallas[<?= $talla['id'] ?>]"
+                value="<?= $talla['stock'] ?? 0 ?>"
+                class="form-control text-center"
+                style="width: 100%; max-width: 60px;"
+                min="0"
+                max="999"
+                required>
             </div>
         <?php endwhile; ?>
+        </div>
         <!--<button type="submit" class="btn btn-primary mt-3">Guardar Cambios</button>-->
         <button type="submit" class="btn btn-primary mt-3">
             <?= $esNuevo ? 'Agregar Producto' : 'Guardar Cambios' ?>
@@ -199,4 +214,4 @@ include_once __DIR__ . '/../includes/header.php';
     </form>
 </div>
 
-<?php include '../includes/footer.php'; ?>
+<?php include '../includes/footer.php';

@@ -59,17 +59,29 @@ function validarTelefonoDireccionUsuario($usuario_id, $telefono, $direccion){
 function crearUsuarioSiNoExiste($nombre, $email, $telefono, $direccion) {
     global $mysqli;
     // Verificar si el email ya existe
-    $sql = "SELECT id FROM usuarios WHERE email = ? LIMIT 1";
+    $sql = "SELECT id, rol FROM usuarios WHERE email = ? LIMIT 1";
     $stmt = executeQuery($mysqli, $sql, [$email], "s");
     $result = $stmt->get_result();
     if ($result->num_rows > 0) {
+        $usuario = $result->fetch_assoc();
         $stmt->close();
         // El usuario ya existe: redireccionar
-        echo "<script>
+        /*echo "<script>
                 alert('El correo ya está registrado. Debe iniciar sesión para continuar.');
                 window.location.href = '../pages/login.php?redirect=reserva';
             </script>";
-        exit();
+        exit();*/
+        // Si el rol NO es 'user', redirige
+        if ($usuario['rol'] !== 'user') {
+            echo "<script>
+                    alert('El correo ya está registrado. Debe iniciar sesión para continuar.');
+                    window.location.href = '../pages/login.php?redirect=reserva';
+                </script>";
+            exit();
+        }
+        // Si el rol es 'user', validar y retornar el id existente
+        validarTelefonoDireccionUsuario($usuario['id'], $telefono, $direccion);
+        return $usuario['id'];
     }
     $stmt->close();
     // Crear usuario
